@@ -1,9 +1,9 @@
 <div align="center">
 
-# Project Absence
+# Project Absence: Kernel
 
-[![Docs.rs Badge](https://img.shields.io/badge/docs.rs-project--absence-61c192.svg)](https://docs.rs/project-absence)
-[![Crates.io Badge](https://img.shields.io/crates/v/project-absence.svg?color=fe7d37)](https://crates.io/crates/project-absence)
+[![Docs.rs Badge](https://img.shields.io/badge/docs.rs-project--absence--kernel-61c192.svg)](https://docs.rs/project-absence-kernel)
+[![Crates.io Badge](https://img.shields.io/crates/v/project-absence-kernel.svg?color=fe7d37)](https://crates.io/crates/project-absence-kernel)
 [![CI Badge](https://github.com/kkrypt0nn/project-absence/actions/workflows/ci.yml/badge.svg)](https://github.com/kkrypt0nn/project-absence/actions)
 [![Dependency Status Badge](https://deps.rs/repo/github/kkrypt0nn/project-absence/status.svg)](https://deps.rs/repo/github/kkrypt0nn/project-absence)
 
@@ -15,7 +15,7 @@
 
 ---
 
-Uncover the unseen
+The kernel of Project Absence
 
 <!--
 

@@ -17,4 +17,4 @@ jobs:
       - name: Checkout source code
         uses: actions/checkout@v4
       - name: Publish
-        run: cargo publish --verbose --all-features --token ${{ secrets.CARGO_TOKEN }}
+        run: cd kernel && cargo publish --verbose --all-features --token ${{ secrets.CARGO_TOKEN }}
