@@ -1,0 +1,19 @@
+name: Project Absence CLI & Kernel CD (Publish)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Publish
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+      - name: Publish
+        run: |
+          cargo publish --verbose --all-features --token ${{ secrets.CARGO_TOKEN }}
+          cd cli && cargo publish --verbose --all-features --token ${{ secrets.CARGO_TOKEN }}
