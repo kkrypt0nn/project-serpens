@@ -15,5 +15,5 @@ jobs:
         uses: actions/checkout@v4
       - name: Publish
         run: |
+          cd kernel && cargo publish --verbose --all-features --token ${{ secrets.CARGO_TOKEN }}
           cargo publish --verbose --all-features --token ${{ secrets.CARGO_TOKEN }}
-          cd cli && cargo publish --verbose --all-features --token ${{ secrets.CARGO_TOKEN }}
