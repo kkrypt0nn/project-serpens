@@ -20,4 +20,4 @@ edition = "2021"
 members = ["kernel"]
 
 [dependencies]
-project-absence-kernel = { version = "0.1.1", path = "kernel" }
+project-absence-kernel = { version = "0.1.2", path = "kernel" }

@@ -1,0 +1,7 @@
+[book]
+title = "Project Absence: Documentation"
+description = "👁️ Uncover the unseen"
+authors = ["Krypton"]
+language = "en"
+multilingual = false
+src = "src"
