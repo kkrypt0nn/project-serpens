@@ -15,6 +15,10 @@
 
 ---
 
+> **Note** Due to my military service from **July 2023** until **April 2024** I will not be able to work on this project a lot, most likely only during weekends if I have time and motivation ^-^
+
+> **Warning** This is a WIP tool & library that is **very unstable** and **not fully optimised**, use at your own care! This README will also be reworked.
+
 Uncover the unseen
 
 <!--
