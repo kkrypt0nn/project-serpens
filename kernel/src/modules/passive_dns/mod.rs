@@ -1,5 +1,8 @@
+use rand::Rng;
 use std::any::Any;
 use std::sync::Mutex;
+
+use reqwest::header::USER_AGENT;
 
 use crate::modules::passive_dns::crt_sh::CrtShItem;
 use crate::modules::Module;
@@ -70,10 +73,16 @@ impl Module for ModulePassiveDNS {
         if self.has_processed(domain.to_string()) {
             return;
         }
-
         self.process(domain.to_string());
+
+        let file = include_str!("../../../resources/user_agents.txt");
+        let lines = file.lines();
+        let random_user_agent =
+            lines.clone().collect::<Vec<_>>()[rand::thread_rng().gen_range(0..lines.count())];
+
         let response = reqwest::blocking::Client::new()
             .get(format!("https://crt.sh/?q={}&output=json", domain))
+            .header(USER_AGENT, random_user_agent)
             .send();
         match response {
             Ok(response) => {
