@@ -67,9 +67,7 @@ impl Module for ModulePassiveDNS {
     }
 
     fn execute(&self, session: &Session, args: &[Box<dyn Any>]) {
-        let domain = args[0]
-            .downcast_ref::<&'static str>()
-            .expect("Invalid domain");
+        let domain = args[0].downcast_ref::<String>().expect("Invalid domain");
         if self.has_processed(domain.to_string()) {
             return;
         }

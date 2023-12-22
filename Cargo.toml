@@ -1,7 +1,7 @@
 [package]
 name = "project-absence"
 description = "👁️ Uncover the unseen"
-version = "0.1.4"
+version = "0.2.0"
 license = "MIT"
 readme = "README.md"
 include = [
@@ -20,4 +20,6 @@ edition = "2021"
 members = ["kernel"]
 
 [dependencies]
-project-absence-kernel = { version = "0.1.4", path = "kernel" }
+clap = { version = "4.4.11", features = ["derive"] }
+project-absence-kernel = { version = "0.2.0", path = "kernel" }
+serde = { version = "1.0.193", features = ["derive"] }
