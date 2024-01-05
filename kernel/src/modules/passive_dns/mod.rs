@@ -86,21 +86,23 @@ impl Module for ModulePassiveDNS {
             Ok(response) => {
                 let items: Vec<CrtShItem> = response.json().unwrap_or_default();
                 for item in items {
-                    let name_value = &item
+                    let name_values = &item
                         .name_value
                         .split('\n')
                         .map(|x| x.strip_prefix("*.").unwrap_or(x).to_string())
-                        .collect::<Vec<String>>()[0];
-                    if name_value == &domain.to_string() {
-                        continue;
-                    }
-                    if !self.has_discovered(name_value.to_string()) {
-                        let args = modules::events_log::ModuleEventsLog::new_args(
-                            "dns:passive",
-                            format!("Discovered '{}' as a new subdomain", name_value),
-                        );
-                        session.emit(events::Type::Log, Option::from(args));
-                        self.discover(name_value.to_string());
+                        .collect::<Vec<String>>();
+                    for name_value in name_values {
+                        if name_value == &domain.to_string() {
+                            continue;
+                        }
+                        if !self.has_discovered(name_value.to_string()) {
+                            let args = modules::events_log::ModuleEventsLog::new_args(
+                                "dns:passive",
+                                format!("Discovered '{}' as a new subdomain", name_value),
+                            );
+                            session.emit(events::Type::Log, Option::from(args));
+                            self.discover(name_value.to_string());
+                        }
                     }
                 }
             }
