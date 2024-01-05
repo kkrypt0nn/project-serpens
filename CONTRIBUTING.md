@@ -41,11 +41,6 @@ It would be more than welcome to keep your contributions as a single commit rath
 commits in-between. You may use multiple commits if you believe the changes made in these commits have nothing, or close
 to nothing, in common - feel free to ask a maintainer on whether it should be a single commit or not.
 
-## Create a GitHub Issue and **then** a pull request
-
-Start contributing by first opening a new issue. Once that is done, you can create a pull request for the issue if you
-already have a fix for it.
-
 ## License
 
 Your submissions are understood to be under the same [MIT License](LICENSE.md) that covers the project.
