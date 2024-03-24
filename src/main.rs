@@ -3,6 +3,8 @@ use std::any::Any;
 
 mod options;
 
+// TODO Rework the options system
+
 fn main() {
     println!("Project Absence v{}", env!("CARGO_PKG_VERSION"));
 
@@ -12,7 +14,11 @@ fn main() {
     session.register_default_modules();
     session.start();
 
-    let domain_args: Vec<Box<dyn Any>> = vec![Box::new(options.domain)];
+    let domain_args: Vec<Box<dyn Any>> = vec![
+        Box::new(options.domain),
+        Box::new(options.passive_dns.passive_dns_ignore_expired),
+        Box::new(options.passive_dns.passive_dns_recent_only),
+    ];
     session.emit(
         kernel::events::Type::DiscoveredDomain,
         Option::from(domain_args),

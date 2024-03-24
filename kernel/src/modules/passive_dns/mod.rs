@@ -1,3 +1,4 @@
+use chrono::{Duration, Utc};
 use rand::Rng;
 use std::any::Any;
 use std::sync::Mutex;
@@ -58,7 +59,7 @@ impl Module for ModulePassiveDNS {
 
     fn description(&self) -> String {
         String::from(
-            "This module will use crt.sh to discover new domains perform a passive discovery",
+            "This module will perform a passive discovery of new subdomains by using crt.sh",
         )
     }
 
@@ -68,6 +69,8 @@ impl Module for ModulePassiveDNS {
 
     fn execute(&self, session: &Session, args: &[Box<dyn Any>]) {
         let domain = args[0].downcast_ref::<String>().expect("Invalid domain");
+        let ignore_expired = args[1].downcast_ref::<bool>().unwrap_or(&false);
+        let recent_only = args[2].downcast_ref::<bool>().unwrap_or(&false);
         if self.has_processed(domain.to_string()) {
             return;
         }
@@ -96,9 +99,37 @@ impl Module for ModulePassiveDNS {
                             continue;
                         }
                         if !self.has_discovered(name_value.to_string()) {
+                            let now = Utc::now();
+
+                            // Check if the certificate has expired
+                            let has_expired = item.not_after < now;
+                            if *ignore_expired && has_expired {
+                                continue;
+                            }
+
+                            // Check if the certificate has been created within the last 24 hours
+                            let is_recent = item.not_before <= now
+                                && item.not_before >= now - Duration::try_hours(24).unwrap();
+                            if !is_recent && *recent_only {
+                                continue;
+                            }
+
                             let args = modules::events_log::ModuleEventsLog::new_args(
                                 "dns:passive",
-                                format!("Discovered '{}' as a new subdomain", name_value),
+                                format!(
+                                    "Discovered '{}' as a new subdomain{}{}",
+                                    name_value,
+                                    if has_expired {
+                                        " $[fg:red]$[effect:bold](Certificate expired, likely inactive)"
+                                    } else {
+                                        ""
+                                    },
+                                    if is_recent {
+                                        " $[fg:blue]$[effect:bold](Active since less than 24 hours)"
+                                    } else {
+                                        ""
+                                    }
+                                ),
                             );
                             session.emit(events::Type::Log, Option::from(args));
                             self.discover(name_value.to_string());

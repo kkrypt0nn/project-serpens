@@ -20,6 +20,6 @@ edition = "2021"
 members = ["kernel"]
 
 [dependencies]
-clap = { version = "4.4.11", features = ["derive"] }
+clap = { version = "4.5.3", features = ["derive"] }
 project-absence-kernel = { version = "0.2.1", path = "kernel" }
 serde = { version = "1.0.193", features = ["derive"] }

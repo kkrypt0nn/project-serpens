@@ -5,7 +5,7 @@ use serde::{Deserialize, Serialize};
 pub struct CrtShItem {
     pub issuer_ca_id: usize,
     pub issuer_name: String,
-    pub common_name: String,
+    pub common_name: Option<String>,
     pub name_value: String,
     pub id: usize,
     #[serde(with = "crt_sh_date_format")]
