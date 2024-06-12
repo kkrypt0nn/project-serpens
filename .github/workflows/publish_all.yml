@@ -1,4 +1,4 @@
-name: Project Absence CLI & Kernel CD (Publish)
+name: Project Serpens CLI & Kernel CD (Publish)
 
 on:
   workflow_dispatch:

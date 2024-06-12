@@ -3,7 +3,7 @@
 ## Supported Versions
 
 Security fixes will **always** be accepted and taken in consideration if running on the **latest** version of Project
-Absence that isn't marked as pre-release. See the releases page to know which version is the latest.
+Serpens that isn't marked as pre-release. See the releases page to know which version is the latest.
 
 | Version  | Supported | End of support |
 |----------|-----------|----------------|

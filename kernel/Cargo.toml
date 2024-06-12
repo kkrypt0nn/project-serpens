@@ -1,7 +1,7 @@
 [package]
-name = "project-absence-kernel"
-description = "📡 The kernel of Project Absence"
-version = "0.2.1"
+name = "project-serpens-kernel"
+description = "📡 The kernel of Project Serpens"
+version = "0.1.0"
 license = "MIT"
 readme = "README.md"
 include = [
@@ -13,7 +13,7 @@ include = [
     "/tests/**",
     "/resources/**",
 ]
-repository = "https://github.com/kkrypt0nn/project-absence"
+repository = "https://github.com/kkrypt0nn/project-serpens"
 edition = "2021"
 
 [lib]

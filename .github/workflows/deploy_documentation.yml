@@ -1,4 +1,4 @@
-name: Project Absence CD (Deploy Documentation)
+name: Project Serpens CD (Deploy Documentation)
 
 on:
   release:

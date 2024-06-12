@@ -1,4 +1,4 @@
-name: Project Absence Kernel CD (Publish)
+name: Project Serpens Kernel CD (Publish)
 
 on:
   push:

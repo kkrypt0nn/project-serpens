@@ -1,14 +1,14 @@
 <div align="center">
 
-# Project Absence
+# Project Serpens
 
-[![Docs.rs Badge](https://img.shields.io/badge/docs.rs-project--absence-61c192.svg)](https://docs.rs/project-absence)
-[![Crates.io Badge](https://img.shields.io/crates/v/project-absence.svg?color=fe7d37)](https://crates.io/crates/project-absence)
-[![CI Badge](https://github.com/kkrypt0nn/project-absence/actions/workflows/ci.yml/badge.svg)](https://github.com/kkrypt0nn/project-absence/actions)
-[![Dependency Status Badge](https://deps.rs/repo/github/kkrypt0nn/project-absence/status.svg)](https://deps.rs/repo/github/kkrypt0nn/project-absence)
+[![Docs.rs Badge](https://img.shields.io/badge/docs.rs-project--serpens-61c192.svg)](https://docs.rs/project-serpens)
+[![Crates.io Badge](https://img.shields.io/crates/v/project-serpens.svg?color=fe7d37)](https://crates.io/crates/project-serpens)
+[![CI Badge](https://github.com/kkrypt0nn/project-serpens/actions/workflows/ci.yml/badge.svg)](https://github.com/kkrypt0nn/project-serpens/actions)
+[![Dependency Status Badge](https://deps.rs/repo/github/kkrypt0nn/project-serpens/status.svg)](https://deps.rs/repo/github/kkrypt0nn/project-serpens)
 
 [![Discord Server Badge](https://img.shields.io/discord/739934735387721768?logo=discord)](https://discord.gg/mTBrXyWxAF)
-[![Last Commit Badge](https://img.shields.io/github/last-commit/kkrypt0nn/project-absence)](https://github.com/kkrypt0nn/project-absence/commits/main)
+[![Last Commit Badge](https://img.shields.io/github/last-commit/kkrypt0nn/project-serpens)](https://github.com/kkrypt0nn/project-serpens/commits/main)
 [![Conventional Commits Badge](https://img.shields.io/badge/Conventional%20Commits-1.0.0-%23FE5196?logo=conventionalcommits&logoColor=white)](https://conventionalcommits.org/en/v1.0.0/)
 
 </div>

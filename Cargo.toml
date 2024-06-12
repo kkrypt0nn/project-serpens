@@ -1,7 +1,7 @@
 [package]
-name = "project-absence"
+name = "project-serpens"
 description = "👁️ Uncover the unseen"
-version = "0.2.1"
+version = "0.1.0"
 license = "MIT"
 readme = "README.md"
 include = [
@@ -13,7 +13,7 @@ include = [
     "/SECURITY.md",
     "/src/**",
 ]
-repository = "https://github.com/kkrypt0nn/project-absence"
+repository = "https://github.com/kkrypt0nn/project-serpens"
 edition = "2021"
 
 [workspace]
@@ -21,5 +21,5 @@ members = ["kernel"]
 
 [dependencies]
 clap = { version = "4.5.3", features = ["derive"] }
-project-absence-kernel = { version = "0.2.1", path = "kernel" }
+project-serpens-kernel = { version = "0.1.0", path = "kernel" }
 serde = { version = "1.0.193", features = ["derive"] }

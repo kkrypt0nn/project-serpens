@@ -1,3 +1,3 @@
 # Introduction
 
-Uncover the unseen with Project Absence.
+Uncover the unseen with Project Serpens.

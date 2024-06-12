@@ -6,7 +6,7 @@ mod options;
 // TODO Rework the options system
 
 fn main() {
-    println!("Project Absence v{}", env!("CARGO_PKG_VERSION"));
+    println!("Project Serpens v{}", env!("CARGO_PKG_VERSION"));
 
     let options = options::Options::parse();
 

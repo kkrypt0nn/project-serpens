@@ -25,7 +25,7 @@ impl Module for ModuleReady {
     }
 
     fn description(&self) -> String {
-        String::from("This module is responsible to know when Project Absence is ready and will start to do the work")
+        String::from("This module is responsible to know when Project Serpens is ready and will start to do the work")
     }
 
     fn subscribers(&self) -> Vec<events::Type> {
@@ -35,7 +35,7 @@ impl Module for ModuleReady {
     fn execute(&self, session: &Session, _: &[Box<dyn Any>]) {
         let args = modules::events_log::ModuleEventsLog::new_args(
             "ready",
-            "Project Absence is now ready and will start doing its magic!",
+            "Project Serpens is now ready and will start doing its magic!",
         );
         session.emit(events::Type::Log, Option::from(args))
     }
