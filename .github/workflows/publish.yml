@@ -1,9 +1,9 @@
-name: Project Serpens CLI CD (Publish)
+name: Project Serpens CD (Publish)
 
 on:
   push:
     tags:
-      - "cli_*"
+      - "v*"
   workflow_dispatch:
 
 permissions:
