@@ -12,6 +12,7 @@ include = [
     "/README.md",
     "/SECURITY.md",
     "/src/**",
+    "/resources/**",
 ]
 repository = "https://github.com/kkrypt0nn/project-serpens"
 edition = "2021"
