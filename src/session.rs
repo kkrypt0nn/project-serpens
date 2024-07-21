@@ -39,16 +39,9 @@ impl Session {
     }
 
     pub fn register_default_modules(&mut self) {
-        let mut default_modules: Vec<Box<dyn Module>> = Vec::new();
-        default_modules.push(Box::new(modules::ready::ModuleReady::new()));
-        default_modules.push(Box::new(modules::events_log::ModuleEventsLog::new()));
-        default_modules.push(Box::new(modules::passive_dns::ModulePassiveDNS::new()));
-        for module in default_modules {
-            if self.dev_mode {
-                logger::debug("", format!("Registered module {}", module.name()))
-            }
-            self.modules.push(module);
-        }
+        self.register_module(modules::ready::ModuleReady::new());
+        self.register_module(modules::events_log::ModuleEventsLog::new());
+        self.register_module(modules::passive_dns::ModulePassiveDNS::new());
     }
 
     pub fn emit(&self, name: events::Type, args: Option<Vec<Box<dyn Any>>>) {

@@ -1,7 +1,7 @@
 [package]
 name = "project-serpens"
 description = "👁️ Uncover the unseen"
-version = "0.1.0"
+version = "0.2.0"
 license = "MIT"
 readme = "README.md"
 include = [
@@ -16,10 +16,11 @@ include = [
 repository = "https://github.com/kkrypt0nn/project-serpens"
 edition = "2021"
 
-[workspace]
-members = ["kernel"]
-
 [dependencies]
-clap = { version = "4.5.3", features = ["derive"] }
-project-serpens-kernel = { version = "0.1.0", path = "kernel" }
-serde = { version = "1.0.193", features = ["derive"] }
+chrono = "0.4.38"
+clap = { version = "4.5.9", features = ["derive"] }
+lazy_static = "1.5.0"
+rand = "0.8.5"
+reqwest = { version = "0.12.5", features = ["blocking", "json"] }
+serde = { version = "1.0.204", features = ["derive"] }
+tangra = "1.3.0"
