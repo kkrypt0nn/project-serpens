@@ -24,7 +24,7 @@ impl ModuleEnumerateSubdomains {
 
 impl Module for ModuleEnumerateSubdomains {
     fn name(&self) -> String {
-        String::from("enumerator:subdomains")
+        String::from("enumerate:subdomains")
     }
 
     fn description(&self) -> String {
