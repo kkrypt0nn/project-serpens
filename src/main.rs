@@ -1,5 +1,4 @@
 use clap::Parser;
-use std::any::Any;
 
 mod events;
 mod logger;
@@ -18,10 +17,5 @@ fn main() {
     session.register_default_modules();
     session.start();
 
-    let domain_args: Vec<Box<dyn Any>> = vec![
-        Box::new(options.domain),
-        Box::new(options.passive_dns.passive_dns_ignore_expired),
-        Box::new(options.passive_dns.passive_dns_recent_only),
-    ];
-    session.emit(events::Type::DiscoveredDomain, Option::from(domain_args))
+    session.emit(events::Type::DiscoveredDomain, Some(options))
 }

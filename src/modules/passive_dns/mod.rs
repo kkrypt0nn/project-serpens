@@ -1,6 +1,5 @@
 use chrono::{Duration, Utc};
 use rand::Rng;
-use std::any::Any;
 use std::sync::Mutex;
 
 use reqwest::header::USER_AGENT;
@@ -8,12 +7,11 @@ use reqwest::header::USER_AGENT;
 use crate::modules::passive_dns::crt_sh::CrtShItem;
 use crate::modules::Module;
 use crate::session::Session;
-use crate::{events, logger, modules};
+use crate::{events, logger, options};
 
 mod crt_sh;
 
 pub struct ModulePassiveDNS {
-    discovered_domains: Mutex<Vec<String>>,
     processed_domains: Mutex<Vec<String>>,
 }
 
@@ -26,13 +24,8 @@ impl Default for ModulePassiveDNS {
 impl ModulePassiveDNS {
     pub fn new() -> Self {
         ModulePassiveDNS {
-            discovered_domains: Mutex::new(Vec::new()),
             processed_domains: Mutex::new(Vec::new()),
         }
-    }
-
-    pub fn new_args(domain: String) -> Vec<Box<dyn Any>> {
-        vec![Box::new(domain)]
     }
 
     pub fn process(&self, domain: String) {
@@ -41,14 +34,6 @@ impl ModulePassiveDNS {
 
     pub fn has_processed(&self, domain: String) -> bool {
         self.processed_domains.lock().unwrap().contains(&domain)
-    }
-
-    pub fn discover(&self, domain: String) {
-        self.discovered_domains.lock().unwrap().push(domain)
-    }
-
-    pub fn has_discovered(&self, domain: String) -> bool {
-        self.discovered_domains.lock().unwrap().contains(&domain)
     }
 }
 
@@ -67,10 +52,10 @@ impl Module for ModulePassiveDNS {
         vec![events::Type::DiscoveredDomain]
     }
 
-    fn execute(&self, session: &Session, args: &[Box<dyn Any>]) {
-        let domain = args[0].downcast_ref::<String>().expect("Invalid domain");
-        let ignore_expired = args[1].downcast_ref::<bool>().unwrap_or(&false);
-        let recent_only = args[2].downcast_ref::<bool>().unwrap_or(&false);
+    fn execute(&self, session: &Session, opts: &options::Options) {
+        let domain = &opts.domain;
+        let ignore_expired = opts.passive_dns.passive_dns_ignore_expired;
+        let recent_only = opts.passive_dns.passive_dns_recent_only;
         if self.has_processed(domain.to_string()) {
             return;
         }
@@ -98,24 +83,24 @@ impl Module for ModulePassiveDNS {
                         if name_value == &domain.to_string() {
                             continue;
                         }
-                        if !self.has_discovered(name_value.to_string()) {
+                        if !session.has_discovered_subdomain(name_value.to_string()) {
                             let now = Utc::now();
 
                             // Check if the certificate has expired
                             let has_expired = item.not_after < now;
-                            if *ignore_expired && has_expired {
+                            if ignore_expired && has_expired {
                                 continue;
                             }
 
                             // Check if the certificate has been created within the last 24 hours
                             let is_recent = item.not_before <= now
                                 && item.not_before >= now - Duration::try_hours(24).unwrap();
-                            if !is_recent && *recent_only {
+                            if !is_recent && recent_only {
                                 continue;
                             }
 
-                            let args = modules::events_log::ModuleEventsLog::new_args(
-                                "dns:passive",
+                            logger::println(
+                                self.name(),
                                 format!(
                                     "Discovered '{}' as a new subdomain{}{}",
                                     name_value,
@@ -131,13 +116,12 @@ impl Module for ModulePassiveDNS {
                                     }
                                 ),
                             );
-                            session.emit(events::Type::Log, Option::from(args));
-                            self.discover(name_value.to_string());
+                            session.discover_subdomain(name_value.to_string());
                         }
                     }
                 }
             }
-            Err(_) => logger::error("dns:passive", "Failed performing a request to crt.sh"),
+            Err(_) => logger::error(self.name(), "Failed performing a request to crt.sh"),
         }
     }
 }

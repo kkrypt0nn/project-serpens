@@ -1,8 +1,7 @@
-use std::any::Any;
-
 use crate::events;
-use crate::modules;
+use crate::logger;
 use crate::modules::Module;
+use crate::options;
 use crate::session::Session;
 
 pub struct ModuleReady {}
@@ -32,11 +31,10 @@ impl Module for ModuleReady {
         vec![events::Type::Ready]
     }
 
-    fn execute(&self, session: &Session, _: &[Box<dyn Any>]) {
-        let args = modules::events_log::ModuleEventsLog::new_args(
+    fn execute(&self, _: &Session, _: &options::Options) {
+        logger::println(
             "ready",
             "Project Serpens is now ready and will start doing its magic!",
-        );
-        session.emit(events::Type::Log, Option::from(args))
+        )
     }
 }

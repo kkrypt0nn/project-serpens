@@ -2,7 +2,6 @@ use std::fmt;
 
 #[derive(Debug, Eq, Hash, PartialEq)]
 pub enum Type {
-    Log,
     Ready,
     DiscoveredDomain,
 }
@@ -10,9 +9,6 @@ pub enum Type {
 impl fmt::Display for Type {
     fn fmt(&self, formatter: &mut fmt::Formatter) -> fmt::Result {
         match self {
-            Type::Log => {
-                write!(formatter, "log")
-            }
             Type::Ready => {
                 write!(formatter, "ready")
             }

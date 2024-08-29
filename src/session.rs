@@ -1,11 +1,13 @@
-use std::any::Any;
+use std::sync::Mutex;
 
 use crate::modules::Module;
-use crate::{events, logger, modules};
+use crate::{events, logger, modules, options};
 
 pub struct Session {
     pub dev_mode: bool,
     modules: Vec<Box<dyn Module>>,
+
+    discovered_subdomains: Mutex<Vec<String>>,
 }
 
 impl Default for Session {
@@ -19,7 +21,20 @@ impl Session {
         Session {
             dev_mode: false,
             modules: Vec::new(),
+
+            discovered_subdomains: Mutex::new(Vec::new()),
         }
+    }
+
+    pub fn discover_subdomain(&self, subdomain: String) {
+        self.discovered_subdomains.lock().unwrap().push(subdomain)
+    }
+
+    pub fn has_discovered_subdomain(&self, subdomain: String) -> bool {
+        self.discovered_subdomains
+            .lock()
+            .unwrap()
+            .contains(&subdomain)
     }
 
     pub fn register_module<T: Module + 'static>(&mut self, module: T) {
@@ -29,6 +44,7 @@ impl Session {
         self.modules.push(Box::new(module));
     }
 
+    #[allow(dead_code)]
     pub fn register_modules<T: Module + 'static>(&mut self, modules: Vec<T>) {
         for module in modules {
             if self.dev_mode {
@@ -40,15 +56,15 @@ impl Session {
 
     pub fn register_default_modules(&mut self) {
         self.register_module(modules::ready::ModuleReady::new());
-        self.register_module(modules::events_log::ModuleEventsLog::new());
         self.register_module(modules::passive_dns::ModulePassiveDNS::new());
+        self.register_module(modules::enumerate_subdomains::ModuleEnumerateSubdomains::new());
     }
 
-    pub fn emit(&self, name: events::Type, args: Option<Vec<Box<dyn Any>>>) {
-        let (session, args) = (self, &args.unwrap_or_default());
+    pub fn emit(&self, name: events::Type, args: Option<options::Options>) {
+        let (session, opts) = (self, &args.unwrap_or_default());
         for module in &self.modules {
             if module.subscribers().contains(&name) {
-                module.execute(session, args);
+                module.execute(session, opts);
             }
         }
     }

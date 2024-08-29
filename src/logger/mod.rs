@@ -14,6 +14,7 @@ fn parse_event_name(event: String) -> String {
     }
 }
 
+#[allow(dead_code)]
 pub fn trace(event: impl Into<String>, message: impl Into<String>) {
     LOGGER.lock().unwrap().println(format!(
         "[$[now:time]] [{}{}{}$[reset]] {}",
@@ -24,6 +25,7 @@ pub fn trace(event: impl Into<String>, message: impl Into<String>) {
     ))
 }
 
+#[allow(dead_code)]
 pub fn debug(event: impl Into<String>, message: impl Into<String>) {
     LOGGER.lock().unwrap().println(format!(
         "[$[now:time]] [{}{}{}$[reset]] {}",
@@ -34,6 +36,7 @@ pub fn debug(event: impl Into<String>, message: impl Into<String>) {
     ))
 }
 
+#[allow(dead_code)]
 pub fn info(event: impl Into<String>, message: impl Into<String>) {
     LOGGER.lock().unwrap().println(format!(
         "[$[now:time]] [{}{}{}$[reset]] {}",
@@ -44,6 +47,7 @@ pub fn info(event: impl Into<String>, message: impl Into<String>) {
     ))
 }
 
+#[allow(dead_code)]
 pub fn warn(event: impl Into<String>, message: impl Into<String>) {
     LOGGER.lock().unwrap().println(format!(
         "[$[now:time]] [{}{}{}$[reset]] {}",
@@ -54,6 +58,7 @@ pub fn warn(event: impl Into<String>, message: impl Into<String>) {
     ))
 }
 
+#[allow(dead_code)]
 pub fn error(event: impl Into<String>, message: impl Into<String>) {
     LOGGER.lock().unwrap().println(format!(
         "[$[now:time]] [{}{}{}$[reset]] {}",
@@ -64,6 +69,7 @@ pub fn error(event: impl Into<String>, message: impl Into<String>) {
     ))
 }
 
+#[allow(dead_code)]
 pub fn fatal(event: impl Into<String>, message: impl Into<String>) {
     LOGGER.lock().unwrap().println(format!(
         "[$[now:time]] [{}{}{}$[reset]] {}",
@@ -74,6 +80,7 @@ pub fn fatal(event: impl Into<String>, message: impl Into<String>) {
     ))
 }
 
+#[allow(dead_code)]
 pub fn print(event: impl Into<String>, message: impl Into<String>) {
     LOGGER.lock().unwrap().print(format!(
         "[$[now:time]] [$[effect:bold]$[fg:green]{}$[reset]] {}",
@@ -82,6 +89,7 @@ pub fn print(event: impl Into<String>, message: impl Into<String>) {
     ));
 }
 
+#[allow(dead_code)]
 pub fn println(event: impl Into<String>, message: impl Into<String>) {
     LOGGER.lock().unwrap().println(format!(
         "[$[now:time]] [$[effect:bold]$[fg:green]{}$[reset]] {}",
@@ -90,6 +98,7 @@ pub fn println(event: impl Into<String>, message: impl Into<String>) {
     ));
 }
 
+#[allow(dead_code)]
 pub fn log(level: tangra::levels::Level, message: impl Into<String>) {
     LOGGER.lock().unwrap().log(level, message);
 }
