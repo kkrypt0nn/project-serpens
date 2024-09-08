@@ -1,6 +1,7 @@
 use crate::session::Session;
 use crate::{events, options};
 
+pub mod enumerate_files;
 pub mod enumerate_subdomains;
 pub mod passive_dns;
 pub mod ready;

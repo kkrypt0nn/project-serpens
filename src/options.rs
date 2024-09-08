@@ -12,11 +12,14 @@ pub struct Options {
     #[arg(short, long)]
     pub domain: String,
 
-    #[clap(flatten, next_help_heading = "Passive DNS")]
-    pub passive_dns: PassiveDNSOptions,
+    #[clap(flatten, next_help_heading = "Enumerate Files")]
+    pub enumerate_files: EnumerateFilesOptions,
 
     #[clap(flatten, next_help_heading = "Enumerate Subdomains")]
     pub enumerate_subdomains: EnumerateSubdomainsOptions,
+
+    #[clap(flatten, next_help_heading = "Passive DNS")]
+    pub passive_dns: PassiveDNSOptions,
 }
 
 #[derive(Parser, Debug, Serialize, Deserialize, Clone, Default)]
@@ -37,4 +40,15 @@ pub(crate) struct EnumerateSubdomainsOptions {
     #[clap(long, default_value = "")]
     /// The path to the wordlist to use
     pub enumerate_subdomains_wordlist: String,
+}
+
+#[derive(Parser, Debug, Serialize, Deserialize, Clone, Default)]
+#[group(skip)]
+pub(crate) struct EnumerateFilesOptions {
+    #[clap(long, default_value = "")]
+    /// The path to the wordlist to use
+    pub enumerate_files_wordlist: String,
+    #[clap(long, default_value = "")]
+    /// The extension to append to the file names
+    pub enumerate_files_extension: String,
 }

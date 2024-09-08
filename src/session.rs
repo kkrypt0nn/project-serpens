@@ -55,9 +55,10 @@ impl Session {
     }
 
     pub fn register_default_modules(&mut self) {
-        self.register_module(modules::ready::ModuleReady::new());
-        self.register_module(modules::passive_dns::ModulePassiveDNS::new());
-        self.register_module(modules::enumerate_subdomains::ModuleEnumerateSubdomains::new());
+        // self.register_module(modules::ready::ModuleReady::new());
+        self.register_module(modules::enumerate_files::ModuleEnumerateFiles::new());
+        // self.register_module(modules::enumerate_subdomains::ModuleEnumerateSubdomains::new());
+        // self.register_module(modules::passive_dns::ModulePassiveDNS::new());
     }
 
     pub fn emit(&self, name: events::Type, args: Option<options::Options>) {
