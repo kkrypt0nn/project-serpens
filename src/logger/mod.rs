@@ -58,7 +58,6 @@ pub fn warn(event: impl Into<String>, message: impl Into<String>) {
     ))
 }
 
-#[allow(dead_code)]
 pub fn error(event: impl Into<String>, message: impl Into<String>) {
     LOGGER.lock().unwrap().println(format!(
         "[$[now:time]] [{}{}{}$[reset]] {}",
@@ -89,7 +88,6 @@ pub fn print(event: impl Into<String>, message: impl Into<String>) {
     ));
 }
 
-#[allow(dead_code)]
 pub fn println(event: impl Into<String>, message: impl Into<String>) {
     LOGGER.lock().unwrap().println(format!(
         "[$[now:time]] [$[effect:bold]$[fg:green]{}$[reset]] {}",

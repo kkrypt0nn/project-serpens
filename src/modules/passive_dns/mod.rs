@@ -7,7 +7,7 @@ use reqwest::header::USER_AGENT;
 use crate::modules::passive_dns::crt_sh::CrtShItem;
 use crate::modules::Module;
 use crate::session::Session;
-use crate::{events, logger, options};
+use crate::{events, logger};
 
 mod crt_sh;
 
@@ -52,10 +52,11 @@ impl Module for ModulePassiveDNS {
         vec![events::Type::DiscoveredDomain(String::new())]
     }
 
-    fn execute(&self, session: &Session, opts: &options::Options) {
-        let domain = &opts.domain;
-        let ignore_expired = opts.passive_dns.passive_dns_ignore_expired;
-        let recent_only = opts.passive_dns.passive_dns_recent_only;
+    fn execute(&self, session: &Session) {
+        let config = session.get_config();
+        let domain = &config.domain;
+        let ignore_expired = config.passive_dns.passive_dns_ignore_expired;
+        let recent_only = config.passive_dns.passive_dns_recent_only;
         if self.has_processed(domain.to_string()) {
             return;
         }

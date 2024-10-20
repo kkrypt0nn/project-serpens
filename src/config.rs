@@ -7,24 +7,24 @@ use serde::{Deserialize, Serialize};
     about,
     arg_required_else_help(true)
 )]
-pub struct Options {
+pub struct Config {
     /// Domain to scan for
     #[arg(short, long)]
     pub domain: String,
 
     #[clap(flatten, next_help_heading = "Enumerate Files")]
-    pub enumerate_files: EnumerateFilesOptions,
+    pub enumerate_files: EnumerateFilesConfig,
 
     #[clap(flatten, next_help_heading = "Enumerate Subdomains")]
-    pub enumerate_subdomains: EnumerateSubdomainsOptions,
+    pub enumerate_subdomains: EnumerateSubdomainsConfig,
 
     #[clap(flatten, next_help_heading = "Passive DNS")]
-    pub passive_dns: PassiveDNSOptions,
+    pub passive_dns: PassiveDNSConfig,
 }
 
 #[derive(Parser, Debug, Serialize, Deserialize, Clone, Default)]
 #[group(skip)]
-pub(crate) struct PassiveDNSOptions {
+pub(crate) struct PassiveDNSConfig {
     #[clap(long, default_value_t = false)]
     /// Ignore expired certificates.
     pub passive_dns_ignore_expired: bool,
@@ -36,7 +36,7 @@ pub(crate) struct PassiveDNSOptions {
 
 #[derive(Parser, Debug, Serialize, Deserialize, Clone, Default)]
 #[group(skip)]
-pub(crate) struct EnumerateSubdomainsOptions {
+pub(crate) struct EnumerateSubdomainsConfig {
     #[clap(long, default_value = "")]
     /// The path to the wordlist to use
     pub enumerate_subdomains_wordlist: String,
@@ -44,7 +44,7 @@ pub(crate) struct EnumerateSubdomainsOptions {
 
 #[derive(Parser, Debug, Serialize, Deserialize, Clone, Default)]
 #[group(skip)]
-pub(crate) struct EnumerateFilesOptions {
+pub(crate) struct EnumerateFilesConfig {
     #[clap(long, default_value = "")]
     /// The path to the wordlist to use
     pub enumerate_files_wordlist: String,
