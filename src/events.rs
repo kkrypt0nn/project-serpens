@@ -3,7 +3,8 @@ use std::fmt;
 #[derive(Debug, Eq, Hash, PartialEq)]
 pub enum Type {
     Ready,
-    DiscoveredDomain,
+    /// String: the discovered domain
+    DiscoveredDomain(String),
 }
 
 impl fmt::Display for Type {
@@ -12,7 +13,7 @@ impl fmt::Display for Type {
             Type::Ready => {
                 write!(formatter, "ready")
             }
-            Type::DiscoveredDomain => {
+            Type::DiscoveredDomain(_) => {
                 write!(formatter, "discovered:domain")
             }
         }

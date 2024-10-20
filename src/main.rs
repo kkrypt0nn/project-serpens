@@ -15,15 +15,8 @@ fn main() {
 
     let options = options::Options::parse();
     let (tx, rx) = flume::bounded::<events::Type>(100);
-    tx.send(events::Type::DiscoveredDomain).unwrap();
 
     let mut session = session::Session::new(options, tx, rx);
     session.register_default_modules();
     session.start();
-
-    // while let Ok(event) = rx.recv() {
-    //     println!("{}", event)
-    // }
-
-    // session.emit(events::Type::DiscoveredDomain, Some(options));
 }

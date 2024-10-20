@@ -34,7 +34,7 @@ impl Module for ModuleEnumerateSubdomains {
     }
 
     fn subscribers(&self) -> Vec<events::Type> {
-        vec![events::Type::DiscoveredDomain]
+        vec![events::Type::DiscoveredDomain(String::new())]
     }
 
     fn execute(&self, session: &Session, opts: &options::Options) {
