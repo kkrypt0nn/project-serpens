@@ -1,5 +1,5 @@
+use crate::events;
 use crate::session::Session;
-use crate::{events, options};
 
 pub mod enumerate_files;
 pub mod enumerate_subdomains;
@@ -11,5 +11,5 @@ pub trait Module {
     #[allow(dead_code)]
     fn description(&self) -> String;
     fn subscribers(&self) -> Vec<events::Type>;
-    fn execute(&self, session: &Session, opts: &options::Options);
+    fn execute(&self, session: &Session);
 }

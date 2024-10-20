@@ -7,7 +7,7 @@ use reqwest::header::USER_AGENT;
 
 use crate::modules::Module;
 use crate::session::Session;
-use crate::{events, logger, options};
+use crate::{events, logger};
 
 pub struct ModuleEnumerateFiles {}
 
@@ -36,11 +36,12 @@ impl Module for ModuleEnumerateFiles {
         vec![events::Type::DiscoveredDomain(String::new())]
     }
 
-    fn execute(&self, _: &Session, opts: &options::Options) {
-        let domain = &opts.domain;
-        let wordlist_file = File::open(&opts.enumerate_files.enumerate_files_wordlist)
+    fn execute(&self, session: &Session) {
+        let config = session.get_config();
+        let domain = &config.domain;
+        let wordlist_file = File::open(&config.enumerate_files.enumerate_files_wordlist)
             .expect("Invalid wordlist file path");
-        let extension = &opts.enumerate_files.enumerate_files_extension;
+        let extension = &config.enumerate_files.enumerate_files_extension;
         let lines = BufReader::new(wordlist_file).lines();
         for line in lines.map_while(Result::ok) {
             let user_agents_file = include_str!("../../../resources/user_agents.txt");

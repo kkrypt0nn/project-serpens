@@ -1,7 +1,6 @@
 use crate::events;
 use crate::logger;
 use crate::modules::Module;
-use crate::options;
 use crate::session::Session;
 
 pub struct ModuleReady {}
@@ -31,7 +30,7 @@ impl Module for ModuleReady {
         vec![events::Type::Ready]
     }
 
-    fn execute(&self, _: &Session, _: &options::Options) {
+    fn execute(&self, _: &Session) {
         logger::println(
             "ready",
             "Project Serpens is now ready and will start doing its magic!",

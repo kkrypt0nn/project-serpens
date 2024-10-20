@@ -1,22 +1,22 @@
 use clap::Parser;
 use flume;
 
+mod config;
 mod events;
 mod logger;
 mod modules;
-mod options;
 mod session;
 
-// TODO : Rework the options system, same for the overall modules management
+// TODO : Rework the overall modules management
 // TODO : Allow the events to contain either arguments or some sort of `Context`
 
 fn main() {
     println!("Project Serpens v{}", env!("CARGO_PKG_VERSION"));
 
-    let options = options::Options::parse();
+    let config = config::Config::parse();
     let (tx, rx) = flume::bounded::<events::Type>(100);
 
-    let mut session = session::Session::new(options, tx, rx);
+    let mut session = session::Session::new(config, tx, rx);
     session.register_default_modules();
     session.start();
 }

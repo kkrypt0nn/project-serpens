@@ -3,32 +3,39 @@ use std::sync::Mutex;
 use flume::{Receiver, Sender};
 
 use crate::modules::Module;
-use crate::{events, logger, modules, options};
+use crate::{config, events, logger, modules};
 
 pub struct Session {
-    dev_mode: bool,
-    options: options::Options,
+    config: config::Config,
     sender: Sender<events::Type>,
     receiver: Receiver<events::Type>,
 
     modules: Vec<Box<dyn Module>>,
     discovered_subdomains: Mutex<Vec<String>>,
+
+    dev_mode: bool,
 }
 
 impl Session {
     pub fn new(
-        options: options::Options,
+        config: config::Config,
         sender: Sender<events::Type>,
         receiver: Receiver<events::Type>,
     ) -> Self {
         Session {
-            dev_mode: false,
-            options,
+            config,
             sender,
             receiver,
+
             modules: Vec::new(),
             discovered_subdomains: Mutex::new(Vec::new()),
+
+            dev_mode: false,
         }
+    }
+
+    pub fn get_config(&self) -> &config::Config {
+        &self.config
     }
 
     pub fn discover_subdomain(&self, subdomain: String) {
@@ -62,7 +69,7 @@ impl Session {
 
     pub fn start(&mut self) {
         self.emit(events::Type::Ready);
-        self.emit(events::Type::DiscoveredDomain(self.options.domain.clone()));
+        self.emit(events::Type::DiscoveredDomain(self.config.domain.clone()));
 
         while let Ok(event) = self.receiver.recv() {
             for module in &self.modules {
@@ -77,7 +84,7 @@ impl Session {
                         _ => false,
                     })
                 {
-                    module.execute(&self, &self.options);
+                    module.execute(&self);
                 }
             }
         }

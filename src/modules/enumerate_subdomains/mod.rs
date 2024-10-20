@@ -6,7 +6,7 @@ use reqwest::header::USER_AGENT;
 
 use crate::modules::Module;
 use crate::session::Session;
-use crate::{events, logger, options};
+use crate::{events, logger};
 
 pub struct ModuleEnumerateSubdomains {}
 
@@ -37,9 +37,10 @@ impl Module for ModuleEnumerateSubdomains {
         vec![events::Type::DiscoveredDomain(String::new())]
     }
 
-    fn execute(&self, session: &Session, opts: &options::Options) {
-        let domain = &opts.domain;
-        let wordlist_file = File::open(&opts.enumerate_subdomains.enumerate_subdomains_wordlist)
+    fn execute(&self, session: &Session) {
+        let config = session.get_config();
+        let domain = &config.domain;
+        let wordlist_file = File::open(&config.enumerate_subdomains.enumerate_subdomains_wordlist)
             .expect("Invalid wordlist file path");
         let lines = BufReader::new(wordlist_file).lines();
         for line in lines.map_while(Result::ok) {
