@@ -33,7 +33,7 @@ impl Module for ModuleEnumerateFiles {
     }
 
     fn subscribers(&self) -> Vec<events::Type> {
-        vec![events::Type::DiscoveredDomain]
+        vec![events::Type::DiscoveredDomain(String::new())]
     }
 
     fn execute(&self, _: &Session, opts: &options::Options) {
